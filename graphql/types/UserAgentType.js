@@ -1,6 +1,6 @@
 const { GraphQLObjectType, GraphQLString } = require('graphql');
 
-const UserAgentType = new GraphQLObjectType({
+exports.UserAgentType = new GraphQLObjectType({
   name: 'UserAgent',
   fields: () => ({
     id: { type: GraphQLString },
@@ -20,5 +20,3 @@ const UserAgentType = new GraphQLObjectType({
     datetime: { type: GraphQLString },
   })
 });
-
-module.exports = UserAgentType;
