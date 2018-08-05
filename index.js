@@ -14,9 +14,11 @@ app.use(compression());
 app.use(express.json());
 app.use(routes);
 
+const isDev = process.env.NODE_ENV === 'production' ? false : true;
+
 app.use('/graphql', graphqlHTTP({
   schema: schema,
-  graphiql: true,
+  graphiql: isDev,
 }));
 
 const specOptions = {

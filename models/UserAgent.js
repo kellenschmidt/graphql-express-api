@@ -18,4 +18,9 @@ const UserAgentSchema = new Schema({
   datetime: Date,
 });
 
-module.exports = mongoose.model('UserAgent', UserAgentSchema);
+const UserAgentModel = mongoose.model('UserAgent', UserAgentSchema);
+
+module.exports = {
+  UserAgentSchema,
+  UserAgentModel,
+}
