@@ -7,6 +7,7 @@ const schema = require('./graphql/schema');
 const swaggerUi = require('swagger-ui-express');
 const swaggerJSDoc = require('swagger-jsdoc');
 const routes = require('./routes/routes');
+const dotenv = require('dotenv');
 
 const app = express();
 app.use(helmet());
@@ -15,6 +16,18 @@ app.use(express.json());
 app.use(routes);
 
 const isDev = process.env.NODE_ENV === 'production' ? false : true;
+const port = process.env.EXPRESS_PORT || 3000;
+
+if (isDev) {
+  dotenv.load();
+}
+
+let version;
+try {
+  version = require('./app-version');
+} catch(err) {
+  version = '0.0.0';
+}
 
 app.use('/graphql', graphqlHTTP({
   schema: schema,
@@ -25,7 +38,7 @@ const specOptions = {
   definition: {
     info: {
       title: 'User Interaction Tracking API',
-      version: '1.0.0',
+      version: version,
     },
   },
   apis: ['./routes/routes.js'],
@@ -36,9 +49,9 @@ const uiOptions = {
 }
 app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec, uiOptions));
 
-mongoose.connect('mongodb://kellen:password@localhost:27017');
+mongoose.connect(`mongodb://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_HOST}:27017`);
 mongoose.connection.once('open', () => {
   console.log("Connected to MongoDB");
 });
 
-app.listen(3000, () => console.log('Example app listening on port 3000!'));
+app.listen(port, () => console.log(`Example app listening on port ${port}!`));

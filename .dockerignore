@@ -1,0 +1,9 @@
+# Items that don't need to be in a Docker image
+Dockerfile
+.dockerignore
+.gitignore
+yarn-error.log
+README.md
+LICENSE
+node_modules
+.circleci
