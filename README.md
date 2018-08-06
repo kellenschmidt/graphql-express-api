@@ -1,5 +1,7 @@
 # graphql-express-api
 
+[![CircleCI](https://circleci.com/gh/kellenschmidt/graphql-express-api.svg?style=svg)](https://circleci.com/gh/kellenschmidt/graphql-express-api)
+
 Log in with `mongo --host localhost -u mongoadmin -p secret --authenticationDatabase admin admin`
 
 ```

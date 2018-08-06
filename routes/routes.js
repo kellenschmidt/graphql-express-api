@@ -18,19 +18,28 @@ const { UserAgentModel } = require('../models/UserAgent');
  *       - application/json
  *     responses:
  *       200:
- *         description: user agents
+ *         description: retrieved user agents
  */
 router.get('/user-agents', async (req, res) => {
   let response = await UserAgentModel.find();
   res.send(response);
 });
+
+/**
+ * @swagger
+ * /user-agents:
+ *   post:
+ *     description: Add a new user agent
+ *     tags: [User Agents]
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: created user agent
+ */
 router.post('/user-agents', (req, res) => {
-  const { userAgent, uaType, uaBrand } = req.body;
-  const newUserAgent = new UserAgentModel({
-    userAgent,
-    uaType,
-    uaBrand
-  });
+  const { ...userAgentFields } = req.body;
+  const newUserAgent = new UserAgentModel( userAgentFields );
 
   res.send(newUserAgent.save())
 });
