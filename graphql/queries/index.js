@@ -1,8 +1,8 @@
 const { GraphQLObjectType, GraphQLString } = require('graphql');
 const { UserAgentType } = require('../types/UserAgent');
 const { PageVisitType } = require('../types/PageVisit');
-const UserAgent = require('../../models/UserAgent');
-const PageVisit = require('../../models/PageVisit');
+const { UserAgent } = require('../../models/UserAgent');
+const { PageVisit } = require('../../models/PageVisit');
 
 exports.QueryType = new GraphQLObjectType({
   name: 'Query',

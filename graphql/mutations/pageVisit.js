@@ -1,6 +1,6 @@
 const { GraphQLNonNull, GraphQLString } = require('graphql');
 const { PageVisitType } = require('../types/PageVisit');
-const { PageVisitModel } = require('../../models/PageVisit');
+const { PageVisit } = require('../../models/PageVisit');
 const { UserAgentInputType } = require('../types/UserAgent');
 const { createUserAgentModel } = require('./userAgent');
 
@@ -12,10 +12,10 @@ exports.addPageVisit = {
     userAgent: { type: new GraphQLNonNull(UserAgentInputType) },
   },
   async resolve(root, params) {
-    const pageVisitModel = new PageVisitModel(params);
-    pageVisitModel.userAgent = await createUserAgentModel(params.userAgent);
+    const PageVisit = new PageVisit(params);
+    PageVisit.userAgent = await createUserAgentModel(params.userAgent);
 
-    const newPageVisit = pageVisitModel.save();
+    const newPageVisit = PageVisit.save();
     if (!newPageVisit) {
       throw new Error('Error');
     }

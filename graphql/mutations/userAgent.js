@@ -1,6 +1,6 @@
 const { GraphQLNonNull, GraphQLString } = require('graphql');
 const { UserAgentType } = require('../types/UserAgent');
-const { UserAgentModel } = require('../../models/UserAgent');
+const { UserAgent } = require('../../models/UserAgent');
 const axios = require('axios');
 
 const addUserAgent = {
@@ -21,7 +21,7 @@ const addUserAgent = {
 }
 
 async function createUserAgentModel(params) {
-  const uaModel = new UserAgentModel(params);
+  const uaModel = new UserAgent(params);
   uaModel.datetime = new Date().toString();
 
   let apiData = await getUserAgentApiData(params.userAgent);

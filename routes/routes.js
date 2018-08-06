@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { UserAgentModel } = require('../models/UserAgent');
+const { UserAgent } = require('../models/UserAgent');
 
 /**
    * @swagger
@@ -21,7 +21,7 @@ const { UserAgentModel } = require('../models/UserAgent');
  *         description: retrieved user agents
  */
 router.get('/user-agents', async (req, res) => {
-  let response = await UserAgentModel.find();
+  let response = await UserAgent.find();
   res.send(response);
 });
 
@@ -39,7 +39,7 @@ router.get('/user-agents', async (req, res) => {
  */
 router.post('/user-agents', (req, res) => {
   const { ...userAgentFields } = req.body;
-  const newUserAgent = new UserAgentModel( userAgentFields );
+  const newUserAgent = new UserAgent( userAgentFields );
 
   res.send(newUserAgent.save())
 });
