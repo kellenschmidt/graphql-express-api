@@ -8,6 +8,7 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerJSDoc = require('swagger-jsdoc');
 const routes = require('./routes/routes');
 const dotenv = require('dotenv');
+const cors = require('cors');
 
 const app = express();
 app.use(helmet());
@@ -20,6 +21,7 @@ const port = process.env.EXPRESS_PORT || 3000;
 
 if (isDev) {
   dotenv.load();
+  app.use(cors());
 }
 
 let version;

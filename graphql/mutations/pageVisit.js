@@ -1,7 +1,6 @@
 const { GraphQLNonNull, GraphQLString } = require('graphql');
 const { PageVisitType } = require('../types/PageVisit');
 const { PageVisit } = require('../../models/PageVisit');
-const { UserAgentInputType } = require('../types/UserAgent');
 const { createUserAgentModel } = require('./userAgent');
 const Ip = require("ip");
 
