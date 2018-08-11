@@ -10,12 +10,12 @@ exports.addPageVisit = {
   args: {
     path: { type: new GraphQLNonNull(GraphQLString) },
     referrer: { type: GraphQLString },
-    userAgent: { type: new GraphQLNonNull(UserAgentInputType) },
+    // userAgent: { type: new GraphQLNonNull(UserAgentInputType) },
   },
-  async resolve(root, params) {
+  async resolve(root, params, { request }) {
     const pageVisit = new PageVisit(params);
     pageVisit.ipAddress = Ip.address();
-    pageVisit.userAgent = await createUserAgentModel(params.userAgent);
+    pageVisit.userAgent = await createUserAgentModel({ userAgent: request.headers['user-agent'] });
 
     const newPageVisit = pageVisit.save();
     if (!newPageVisit) {

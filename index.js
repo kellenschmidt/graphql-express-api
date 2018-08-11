@@ -29,10 +29,13 @@ try {
   version = '0.0.0';
 }
 
-app.use('/graphql', graphqlHTTP({
+app.use('/graphql', graphqlHTTP(request => ({
   schema: schema,
   graphiql: isDev,
-}));
+  context: {
+    request
+  }
+})));
 
 const specOptions = {
   definition: {
