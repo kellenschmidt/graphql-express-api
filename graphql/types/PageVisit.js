@@ -1,5 +1,6 @@
 const { GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLID } = require('graphql');
 const { UserAgentType } = require('./UserAgent');
+const { IpAddressType } = require('./IpAddress');
 
 exports.PageVisitType = new GraphQLObjectType({
   name: 'PageVisit',
@@ -7,7 +8,7 @@ exports.PageVisitType = new GraphQLObjectType({
     id: { type: new GraphQLNonNull(GraphQLID) },
     path: { type: GraphQLString },
     referrer: { type: GraphQLString },
-    ipAddress: { type: new GraphQLNonNull(GraphQLString) },
+    ipAddress: { type: new GraphQLNonNull(IpAddressType) },
     userAgent: { type: new GraphQLNonNull(UserAgentType) },
   })
 });

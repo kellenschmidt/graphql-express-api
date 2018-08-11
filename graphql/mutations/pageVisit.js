@@ -2,6 +2,7 @@ const { GraphQLNonNull, GraphQLString } = require('graphql');
 const { PageVisitType } = require('../types/PageVisit');
 const { PageVisit } = require('../../models/PageVisit');
 const { createUserAgentModel } = require('./userAgent');
+const { createIpAddressModel } = require('./ipAddress');
 const Ip = require("ip");
 
 exports.addPageVisit = {
@@ -9,11 +10,10 @@ exports.addPageVisit = {
   args: {
     path: { type: new GraphQLNonNull(GraphQLString) },
     referrer: { type: GraphQLString },
-    // userAgent: { type: new GraphQLNonNull(UserAgentInputType) },
   },
   async resolve(root, params, { request }) {
     const pageVisit = new PageVisit(params);
-    pageVisit.ipAddress = Ip.address();
+    pageVisit.ipAddress = await createIpAddressModel({ ipAddress: Ip.address() });
     pageVisit.userAgent = await createUserAgentModel({ userAgent: request.headers['user-agent'] });
 
     const newPageVisit = pageVisit.save();
