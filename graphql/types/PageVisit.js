@@ -7,6 +7,7 @@ exports.PageVisitType = new GraphQLObjectType({
     id: { type: new GraphQLNonNull(GraphQLID) },
     path: { type: GraphQLString },
     referrer: { type: GraphQLString },
+    ipAddress: { type: new GraphQLNonNull(GraphQLString) },
     userAgent: { type: new GraphQLNonNull(UserAgentType) },
   })
 });

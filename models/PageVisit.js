@@ -5,6 +5,7 @@ const { UserAgentSchema } = require('./UserAgent');
 const PageVisitSchema = new Schema({
   path: String,
   referrer: String,
+  ipAddress: String,
   userAgent: UserAgentSchema,
 });
 

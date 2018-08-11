@@ -3,7 +3,6 @@ const { Schema } = mongoose;
 
 const UserAgentSchema = new Schema({
   userAgent: String,
-  ipAddress: String,
   uaType: String,
   uaBrand: String,
   uaName: String,

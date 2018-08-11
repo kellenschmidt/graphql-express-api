@@ -3,6 +3,7 @@ const { PageVisitType } = require('../types/PageVisit');
 const { PageVisit } = require('../../models/PageVisit');
 const { UserAgentInputType } = require('../types/UserAgent');
 const { createUserAgentModel } = require('./userAgent');
+const Ip = require("ip");
 
 exports.addPageVisit = {
   type: PageVisitType,
@@ -13,6 +14,7 @@ exports.addPageVisit = {
   },
   async resolve(root, params) {
     const pageVisit = new PageVisit(params);
+    pageVisit.ipAddress = Ip.address();
     pageVisit.userAgent = await createUserAgentModel(params.userAgent);
 
     const newPageVisit = pageVisit.save();

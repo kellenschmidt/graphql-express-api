@@ -5,7 +5,6 @@ exports.UserAgentType = new GraphQLObjectType({
   fields: () => ({
     id: { type: new GraphQLNonNull(GraphQLID) },
     userAgent: { type: new GraphQLNonNull(GraphQLString) },
-    ipAddress: { type: new GraphQLNonNull(GraphQLString) },
     uaType: { type: GraphQLString },
     uaBrand: { type: GraphQLString },
     uaName: { type: GraphQLString },
@@ -25,6 +24,5 @@ exports.UserAgentInputType = new GraphQLInputObjectType({
   name: 'UserAgentInput',
   fields: () => ({
     userAgent: { type: new GraphQLNonNull(GraphQLString) },
-    ipAddress: { type: new GraphQLNonNull(GraphQLString) },
   })
 });

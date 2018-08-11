@@ -7,7 +7,6 @@ const addUserAgent = {
   type: UserAgentType,
   args: {
     userAgent: { type: new GraphQLNonNull(GraphQLString) },
-    ipAddress: { type: new GraphQLNonNull(GraphQLString) },
   },
   resolve(root, params) {
     let uaModel = createUserAgentModel(params);
