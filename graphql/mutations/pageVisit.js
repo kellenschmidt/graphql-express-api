@@ -12,10 +12,10 @@ exports.addPageVisit = {
     userAgent: { type: new GraphQLNonNull(UserAgentInputType) },
   },
   async resolve(root, params) {
-    const PageVisit = new PageVisit(params);
-    PageVisit.userAgent = await createUserAgentModel(params.userAgent);
+    const pageVisit = new PageVisit(params);
+    pageVisit.userAgent = await createUserAgentModel(params.userAgent);
 
-    const newPageVisit = PageVisit.save();
+    const newPageVisit = pageVisit.save();
     if (!newPageVisit) {
       throw new Error('Error');
     }
