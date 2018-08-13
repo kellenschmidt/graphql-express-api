@@ -11,13 +11,11 @@ exports.addPageVisit = {
   args: {
     path: { type: new GraphQLNonNull(GraphQLString) },
     referrer: { type: GraphQLString },
+    ipAddress: { type: new GraphQLNonNull(GraphQLString) },
   },
   async resolve(root, params, { request }) {
-    const pageVisit = new PageVisit(params);
-    console.log("Ip.address(): ", Ip.address());
-    var response = await axios.get('https://api.ipify.org?format=json');
-    console.log("ipify.com: ", response.data);
-    pageVisit.ipAddress = await createIpAddressModel({ ipAddress: Ip.address() });
+    const pageVisit = new PageVisit({path: params.path, referrer: params.referrer});
+    pageVisit.ipAddress = await createIpAddressModel({ ipAddress: params.ipAddress });
     pageVisit.userAgent = await createUserAgentModel({ userAgent: request.headers['user-agent'] });
 
     const newPageVisit = pageVisit.save();

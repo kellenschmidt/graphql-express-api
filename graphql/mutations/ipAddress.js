@@ -42,8 +42,7 @@ async function createIpAddressModel(params) {
 }
 
 async function getIpAddressApiData(ipAddress) {
-  // var response = await axios.get('http://ip-api.com/json/' + ipAddress);
-  var response = await axios.get('http://ip-api.com/json/');
+  var response = await axios.get('http://ip-api.com/json/' + ipAddress);
   console.log("HTTP Response:");
   console.log(response.data);
   return response.data;
