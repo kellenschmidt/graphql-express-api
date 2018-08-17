@@ -61,10 +61,12 @@ const uiOptions = {
 }
 app.use(routePrefix, swaggerUi.serve, swaggerUi.setup(swaggerSpec, uiOptions));
 
-console.log(`Connection string: mongodb://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_HOST}:27017`);
-mongoose.connect(`mongodb://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_HOST}:27017`);
-mongoose.connection.once('open', () => {
-  console.log("Connected to MongoDB");
-});
+mongoose.connect(`mongodb://${encodeURIComponent(process.env.MONGO_USER)}:${encodeURIComponent(process.env.MONGO_PASSWORD)}@${encodeURIComponent(process.env.MONGO_HOST)}:27017/${encodeURIComponent(process.env.MONGO_DATABASE)}`, { useNewUrlParser: true }).then(
+  () => { console.log("Connected to MongoDB") },
+  (err) => {
+    console.log(err);
+    console.log(`Connection string: mongodb://${encodeURIComponent(process.env.MONGO_USER)}:${encodeURIComponent(process.env.MONGO_PASSWORD)}@${encodeURIComponent(process.env.MONGO_HOST)}:27017/${encodeURIComponent(process.env.MONGO_DATABASE)}`);
+  }
+);
 
 app.listen(port, () => console.log(`${title} listening on port ${port}!`));
