@@ -59,7 +59,7 @@ const swaggerSpec = swaggerJSDoc(specOptions);
 const uiOptions = {
   explorer: true,
 }
-app.use(routePrefix, swaggerUi.serve, swaggerUi.setup(swaggerSpec, uiOptions));
+app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec, uiOptions));
 
 mongoose.connect(`mongodb://${encodeURIComponent(process.env.MONGO_USER)}:${encodeURIComponent(process.env.MONGO_PASSWORD)}@${encodeURIComponent(process.env.MONGO_HOST)}:27017/${encodeURIComponent(process.env.MONGO_DATABASE)}`, { useNewUrlParser: true }).then(
   () => { console.log("Connected to MongoDB") },
