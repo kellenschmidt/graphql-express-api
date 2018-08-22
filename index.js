@@ -32,13 +32,17 @@ try {
   version = '0.0.0';
 }
 
-app.use('/graphql', graphqlHTTP(request => ({
+// app.use('/graphql', graphqlHTTP(request => ({
+//   schema: schema,
+//   graphiql: isDev,
+//   context: {
+//     request
+//   }
+// })));
+app.use('/graphql', graphqlHTTP({
   schema: schema,
   graphiql: isDev,
-  context: {
-    request
-  }
-})));
+}));
 
 let title = 'User Interaction Tracking API';
 const specOptions = {
@@ -61,11 +65,11 @@ const uiOptions = {
 }
 app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec, uiOptions));
 
-mongoose.connect(`mongodb://${encodeURIComponent(process.env.MONGO_USER)}:${encodeURIComponent(process.env.MONGO_PASSWORD)}@${encodeURIComponent(process.env.MONGO_HOST)}:27017/${encodeURIComponent(process.env.MONGO_DATABASE)}`, { useNewUrlParser: true }).then(
+mongoose.connect(`mongodb://${encodeURIComponent(process.env.MONGO_USER)}:${encodeURIComponent(process.env.MONGO_PASSWORD)}@${encodeURIComponent(process.env.MONGO_HOST)}:27017/${encodeURIComponent(process.env.MONGO_DATABASE)}?authSource=${encodeURIComponent(process.env.MONGO_AUTHDB)}&w=1`, { useNewUrlParser: true }).then(
   () => { console.log("Connected to MongoDB") },
   (err) => {
     console.log(err);
-    console.log(`Connection string: mongodb://${encodeURIComponent(process.env.MONGO_USER)}:${encodeURIComponent(process.env.MONGO_PASSWORD)}@${encodeURIComponent(process.env.MONGO_HOST)}:27017/${encodeURIComponent(process.env.MONGO_DATABASE)}`);
+    console.log(`Connection string: mongodb://${encodeURIComponent(process.env.MONGO_USER)}:${encodeURIComponent(process.env.MONGO_PASSWORD)}@${encodeURIComponent(process.env.MONGO_HOST)}:27017/${encodeURIComponent(process.env.MONGO_DATABASE)}?authSource=${encodeURIComponent(process.env.MONGO_AUTHDB)}&w=1`);
   }
 );
 

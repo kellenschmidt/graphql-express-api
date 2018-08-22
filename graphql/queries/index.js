@@ -9,25 +9,16 @@ const { IpAddress } = require('../../models/IpAddress');
 exports.QueryType = new GraphQLObjectType({
   name: 'Query',
   fields: {
-    userAgent: {
-      type: UserAgentType,
-      args: { id: { type: GraphQLString } },
-      resolve(parent, args) {
-        return UserAgent.findById(args.id)
-      }
-    },
     pageVisit: {
       type: PageVisitType,
-      args: { id: { type: GraphQLString } },
+      args: {
+        id: { type: GraphQLString },
+      },
       resolve(parent, args) {
-        return PageVisit.findById(args.id)
-      }
-    },
-    ipAddress: {
-      type: IpAddressType,
-      args: { id: { type: GraphQLString } },
-      resolve(parent, args) {
-        return IpAddress.findById(args.id)
+        console.log("Query for PageVisit");
+        return PageVisit.findById(args.id);
+        // return PageVisit.find();
+        
       }
     },
   }

@@ -17,7 +17,6 @@
     "express-graphql": "^0.6.12",
     "graphql": "^0.13.2",
     "helmet": "^3.13.0",
-    "ip": "^1.1.5",
     "mongoose": "^5.2.6",
     "swagger-jsdoc": "^3.0.2",
     "swagger-ui-express": "^3.0.10"

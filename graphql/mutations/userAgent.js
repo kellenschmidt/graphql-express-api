@@ -8,8 +8,8 @@ const addUserAgent = {
   args: {
     userAgent: { type: new GraphQLNonNull(GraphQLString) },
   },
-  resolve(root, params) {
-    let uaModel = createUserAgentModel(params);
+  resolve(root, args) {
+    let uaModel = createUserAgentModel(args);
   
     const newUA = uaModel.save();
     if (!newUA) {
@@ -19,11 +19,11 @@ const addUserAgent = {
   }
 }
 
-async function createUserAgentModel(params) {
-  const uaModel = new UserAgent(params);
+async function createUserAgentModel(args) {
+  const uaModel = new UserAgent(args);
   uaModel.datetime = new Date().toString();
 
-  let apiData = await getUserAgentApiData(params.userAgent);
+  let apiData = await getUserAgentApiData(args.userAgent);
   uaModel.uaType = apiData.ua_type;
   uaModel.uaBrand = apiData.ua_brand;
   uaModel.uaName = apiData.ua_name;
