@@ -4,6 +4,7 @@ const helmet = require('helmet');
 const compression = require('compression');
 const graphqlHTTP = require('express-graphql');
 const schema = require('./graphql/schema');
+const { schema2 } = require('./graphql2/schema');
 const swaggerUi = require('swagger-ui-express');
 const swaggerJSDoc = require('swagger-jsdoc');
 const routes = require('./routes/routes');
@@ -39,8 +40,12 @@ try {
 //     request
 //   }
 // })));
+// app.use('/graphql', graphqlHTTP({
+//   schema: schema,
+//   graphiql: isDev,
+// }));
 app.use('/graphql', graphqlHTTP({
-  schema: schema,
+  schema: schema2,
   graphiql: isDev,
 }));
 
@@ -65,6 +70,7 @@ const uiOptions = {
 }
 app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec, uiOptions));
 
+mongoose.set('debug', true);
 mongoose.connect(`mongodb://${encodeURIComponent(process.env.MONGO_USER)}:${encodeURIComponent(process.env.MONGO_PASSWORD)}@${encodeURIComponent(process.env.MONGO_HOST)}:27017/${encodeURIComponent(process.env.MONGO_DATABASE)}?authSource=${encodeURIComponent(process.env.MONGO_AUTHDB)}&w=1`, { useNewUrlParser: true }).then(
   () => { console.log("Connected to MongoDB") },
   (err) => {

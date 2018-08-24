@@ -9,7 +9,7 @@ const addIpAddress = {
     ipAddress: { type: new GraphQLNonNull(GraphQLString) },
   },
   resolve(root, params) {
-    let ipaModel = createIpAddressModel(params);
+    const ipaModel = createIpAddressModel(params);
 
     const newIpa = ipaModel.save();
     if (!newIpa) {
@@ -22,7 +22,7 @@ const addIpAddress = {
 async function createIpAddressModel(params) {
   const ipaModel = new IpAddress(params);
 
-  let apiData = await getIpAddressApiData(params.ipAddress);
+  const apiData = await getIpAddressApiData(params.ipAddress);
   ipaModel.status = apiData.status;
   ipaModel.country = apiData.country;
   ipaModel.countryCode = apiData.countryCode;
@@ -42,7 +42,7 @@ async function createIpAddressModel(params) {
 }
 
 async function getIpAddressApiData(ipAddress) {
-  var response = await axios.get('http://ip-api.com/json/' + ipAddress);
+  const response = await axios.get('http://ip-api.com/json/' + ipAddress);
   console.log("HTTP Response:");
   console.log(response.data);
   return response.data;

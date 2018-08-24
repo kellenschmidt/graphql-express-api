@@ -12,11 +12,7 @@ exports.PageVisitType = new GraphQLObjectType({
       type: new GraphQLNonNull(IpAddressType),
       args: { test: { type: GraphQLString } },
       resolve: (parent, { test }, context, info) => {
-        console.log("Getting ip address, test: ", test);
-        console.log("parent", parent);
-        console.log("parent.ipAddress: ", parent.ipAddress);
-        console.log("Context: ", context);
-        console.log("Info: ", info);
+        
         return parent.ipAddress;
       }
     },
@@ -25,7 +21,6 @@ exports.PageVisitType = new GraphQLObjectType({
       args: { test: { type: GraphQLString } },
       resolve: (parent, { test }) => {
         console.log("Getting user agent, test: ", test)
-        // console.log(parent);
         return parent.userAgent;
       }
     },

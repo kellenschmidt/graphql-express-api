@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const UserAgentSchema = new Schema({
+  pageVisitId: String,
   userAgent: String,
   uaType: String,
   uaBrand: String,

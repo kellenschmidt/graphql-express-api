@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const IpAddressSchema = new Schema({
+  pageVisitId: String,
   status: String,
   country: String,
   countryCode: String,
