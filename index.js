@@ -3,8 +3,7 @@ const mongoose = require('mongoose');
 const helmet = require('helmet');
 const compression = require('compression');
 const graphqlHTTP = require('express-graphql');
-const schema = require('./graphql/schema');
-const { schema2 } = require('./graphql2/schema');
+const { schema } = require('./graphql2/schema');
 const swaggerUi = require('swagger-ui-express');
 const swaggerJSDoc = require('swagger-jsdoc');
 const routes = require('./routes/routes');
@@ -24,6 +23,7 @@ const routePrefix = '/api/v2';
 if (isDev) {
   dotenv.load();
   app.use(cors());
+  mongoose.set('debug', true);
 }
 
 let version;
@@ -33,19 +33,8 @@ try {
   version = '0.0.0';
 }
 
-// app.use('/graphql', graphqlHTTP(request => ({
-//   schema: schema,
-//   graphiql: isDev,
-//   context: {
-//     request
-//   }
-// })));
-// app.use('/graphql', graphqlHTTP({
-//   schema: schema,
-//   graphiql: isDev,
-// }));
 app.use('/graphql', graphqlHTTP({
-  schema: schema2,
+  schema: schema,
   graphiql: isDev,
 }));
 
@@ -70,7 +59,6 @@ const uiOptions = {
 }
 app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec, uiOptions));
 
-mongoose.set('debug', true);
 mongoose.connect(`mongodb://${encodeURIComponent(process.env.MONGO_USER)}:${encodeURIComponent(process.env.MONGO_PASSWORD)}@${encodeURIComponent(process.env.MONGO_HOST)}:27017/${encodeURIComponent(process.env.MONGO_DATABASE)}?authSource=${encodeURIComponent(process.env.MONGO_AUTHDB)}&w=1`, { useNewUrlParser: true }).then(
   () => { console.log("Connected to MongoDB") },
   (err) => {
