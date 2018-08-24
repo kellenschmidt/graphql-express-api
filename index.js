@@ -43,7 +43,7 @@ const specOptions = {
   definition: {
     info: {
       title: title,
-      // description: "API to ",
+      description: "GraphQL API to save and expose user agent and ip address data about page visitors to kellenschmidt.com",
       version: version,
       license: {
         name: "Apache 2.0",
@@ -54,10 +54,8 @@ const specOptions = {
   apis: ['./routes/routes.js'],
 };
 const swaggerSpec = swaggerJSDoc(specOptions);
-const uiOptions = {
-  explorer: true,
-}
-app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec, uiOptions));
+const uiOptions = {}
+app.use('', swaggerUi.serve, swaggerUi.setup(swaggerSpec, uiOptions));
 
 mongoose.connect(`mongodb://${encodeURIComponent(process.env.MONGO_USER)}:${encodeURIComponent(process.env.MONGO_PASSWORD)}@${encodeURIComponent(process.env.MONGO_HOST)}:27017/${encodeURIComponent(process.env.MONGO_DATABASE)}?authSource=${encodeURIComponent(process.env.MONGO_AUTHDB)}&w=1`, { useNewUrlParser: true }).then(
   () => { console.log("Connected to MongoDB") },

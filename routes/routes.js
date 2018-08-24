@@ -1,6 +1,55 @@
 const router = require('express').Router();
 const { UserAgent } = require('../models/UserAgent');
 const { PageVisit } = require('../models/PageVisit');
+const { IpAddress } = require('../models/IpAddress');
+
+/**
+   * @swagger
+   * tags:
+   *   - name: Page Visits
+   *     description: Data about path, referrer, etc.
+   */
+
+/**
+ * @swagger
+ * /page-visits:
+ *   get:
+ *     description: Get a list of page visits
+ *     tags: [Page Visits]
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: retrieved page visits
+ */
+router.get('/page-visits', async (req, res) => {
+  let response = await PageVisit.find();
+  res.send(response);
+});
+
+/**
+   * @swagger
+   * tags:
+   *   - name: IP Addresses
+   *     description: Data about city, state, lat, lon, etc.
+   */
+
+/**
+ * @swagger
+ * /ip-addresses:
+ *   get:
+ *     description: Get a list of ip addresses
+ *     tags: [IP Addresses]
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: retrieved ip addresses
+ */
+router.get('/ip-addresses', async (req, res) => {
+  let response = await IpAddress.find();
+  res.send(response);
+});
 
 /**
    * @swagger
@@ -43,30 +92,6 @@ router.post('/user-agents', (req, res) => {
   const newUserAgent = new UserAgent( userAgentFields );
 
   res.send(newUserAgent.save())
-});
-
-/**
-   * @swagger
-   * tags:
-   *   - name: Page Visits
-   *     description: Data about path, referrer, user agent, ip address, etc.
-   */
-
-/**
- * @swagger
- * /page-visits:
- *   get:
- *     description: Get a list of page visits
- *     tags: [Page Visits]
- *     produces:
- *       - application/json
- *     responses:
- *       200:
- *         description: retrieved page visits
- */
-router.get('/page-visits', async (req, res) => {
-  let response = await PageVisit.find();
-  res.send(response);
 });
 
 module.exports = router;
