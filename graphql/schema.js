@@ -1,8 +1,8 @@
-const { GraphQLSchema } = require('graphql');
-const { QueryType } = require('./queries/index');
-const { MutationType } = require('./mutations/index')
+const { makeExecutableSchema } = require('graphql-tools');
+const { typeDefs } = require('./typeDefs')
+const { resolvers } = require('./resolvers')
 
-module.exports = new GraphQLSchema({
-  query: QueryType,
-  mutation: MutationType
+module.exports = makeExecutableSchema({
+  typeDefs,
+  resolvers
 })
