@@ -65,9 +65,10 @@ const server = new ApolloServer({
   typeDefs,
   resolvers,
   introspection: true,
-  // engine: {
-  //   apiKey: process.env.ENGINE_API_KEY
-  // },
+  // playground: isDev,
+  playground: true,
+  cacheControl: true,
+  tracing: true,
   formatError: error => {
     console.log(error);
     return error;
