@@ -64,6 +64,7 @@ mongoose.connect(`mongodb://${encodeURIComponent(process.env.MONGO_USER)}:${enco
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  introspection: true,
   // engine: {
   //   apiKey: process.env.ENGINE_API_KEY
   // },
