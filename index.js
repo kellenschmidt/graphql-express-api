@@ -2,13 +2,14 @@ const express = require('express');
 const mongoose = require('mongoose');
 const helmet = require('helmet');
 const compression = require('compression');
-const graphqlHTTP = require('express-graphql');
-const schema = require('./graphql/schema');
 const swaggerUi = require('swagger-ui-express');
 const swaggerJSDoc = require('swagger-jsdoc');
 const routes = require('./routes/routes');
 const dotenv = require('dotenv');
 const cors = require('cors');
+const { typeDefs } = require('./graphql/typeDefs')
+const { resolvers } = require('./graphql/resolvers')
+const { ApolloServer } = require('apollo-server-express');
 
 const app = express();
 app.use(helmet());
@@ -33,11 +34,6 @@ try {
   version = '0.0.0';
 }
 
-app.use('/graphql', graphqlHTTP({
-  schema: schema,
-  graphiql: isDev,
-}));
-
 let title = 'User Interaction Tracking API';
 const specOptions = {
   definition: {
@@ -55,7 +51,7 @@ const specOptions = {
 };
 const swaggerSpec = swaggerJSDoc(specOptions);
 const uiOptions = {}
-app.use('', swaggerUi.serve, swaggerUi.setup(swaggerSpec, uiOptions));
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, uiOptions));
 
 mongoose.connect(`mongodb://${encodeURIComponent(process.env.MONGO_USER)}:${encodeURIComponent(process.env.MONGO_PASSWORD)}@${encodeURIComponent(process.env.MONGO_HOST)}:27017/${encodeURIComponent(process.env.MONGO_DATABASE)}?authSource=${encodeURIComponent(process.env.MONGO_AUTHDB)}&w=1`, { useNewUrlParser: true }).then(
   () => { console.log("Connected to MongoDB") },
@@ -65,4 +61,23 @@ mongoose.connect(`mongodb://${encodeURIComponent(process.env.MONGO_USER)}:${enco
   }
 );
 
-app.listen(port, () => console.log(`${title} listening on port ${port}!`));
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  // engine: {
+  //   apiKey: process.env.ENGINE_API_KEY
+  // },
+  formatError: error => {
+    console.log(error);
+    return error;
+  },
+  formatResponse: response => {
+    console.log(response);
+    return response;
+  },
+});
+server.applyMiddleware({ app });
+
+app.listen({ port: port }, () =>
+  console.log(`🚀 Server ready on port ${port} at ${server.graphqlPath}`),
+);

@@ -70,9 +70,9 @@ exports.mutation = {
       }
 
       const ipAddressModel = await createIpAddressModel({ ipAddress: ipAddress, pageVisitId: newPageVisit._id });
+      const newIpAddress = await ipAddressModel.save();
       const userAgentModel = await createUserAgentModel({ userAgent: request.headers['user-agent'], pageVisitId: newPageVisit._id });
       const newUserAgent = await userAgentModel.save();
-      const newIpAddress = await ipAddressModel.save();
       if (!newUserAgent || !newIpAddress) {
         throw new Error('Error');
       }
