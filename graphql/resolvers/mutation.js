@@ -25,7 +25,7 @@ async function createUserAgentModel(args) {
 
 async function getUserAgentApiData(userAgent) {
   var ua = encodeURIComponent(userAgent).replace(/%20/g, '+');
-  var response = await axios.get('http://useragentapi.com/api/v4/json/5a8d9934/' + ua);
+  var response = await axios.get(`https://useragentapi.com/api/v4/json/${process.env.UA_API_KEY}/` + ua);
   console.log("UserAgent API Response:");
   console.log(response.data);
   return response.data.data;
@@ -62,7 +62,7 @@ async function getIpAddressApiData(ipAddress) {
 
 exports.mutation = {
   Mutation: {
-    createPageVisit: async (root, { path, referrer, ipAddress }, request, info) => {
+    createPageVisit: async (root, { path, referrer, ipAddress }, { userAgent }, info) => {
       const pageVisitModel = new PageVisit({ path: path, referrer: referrer });
       const newPageVisit = await pageVisitModel.save();
       if (!newPageVisit) {
@@ -71,7 +71,7 @@ exports.mutation = {
 
       const ipAddressModel = await createIpAddressModel({ ipAddress: ipAddress, pageVisitId: newPageVisit._id });
       const newIpAddress = await ipAddressModel.save();
-      const userAgentModel = await createUserAgentModel({ userAgent: request.headers['user-agent'], pageVisitId: newPageVisit._id });
+      const userAgentModel = await createUserAgentModel({ userAgent: userAgent, pageVisitId: newPageVisit._id });
       const newUserAgent = await userAgentModel.save();
       if (!newUserAgent || !newIpAddress) {
         throw new Error('Error');

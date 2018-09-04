@@ -58,6 +58,9 @@ const server = new ApolloServer({
     console.log(response);
     return response;
   },
+  context: ({ req }) => ({
+    userAgent: req.headers['user-agent']
+  }),
 });
 server.applyMiddleware({ app });
 
