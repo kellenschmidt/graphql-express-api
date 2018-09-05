@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const UserAgentSchema = new Schema({
+  pageVisitId: String,
   userAgent: String,
-  ipAddress: String,
   uaType: String,
   uaBrand: String,
   uaName: String,
@@ -18,9 +18,9 @@ const UserAgentSchema = new Schema({
   datetime: Date,
 });
 
-const UserAgentModel = mongoose.model('UserAgent', UserAgentSchema);
+const UserAgent = mongoose.model('UserAgent', UserAgentSchema);
 
 module.exports = {
   UserAgentSchema,
-  UserAgentModel,
+  UserAgent,
 }
