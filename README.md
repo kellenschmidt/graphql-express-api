@@ -24,7 +24,8 @@ db.createUser({
   roles: [
     { role: "readWrite", db: "test" },
     { role: "readWrite", db: "admin" },
-    { role: "readWrite", db: "interactions"}
+    { role: "readWrite", db: "interactions" },
+    { role: "dbAdmin", db: "interactions" }
   ]
 })
 use interactions
