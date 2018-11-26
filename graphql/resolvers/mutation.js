@@ -6,35 +6,41 @@ const axios = require('axios');
 async function createUserAgentModel(args) {
   const uaModel = new UserAgent(args);
   uaModel.datetime = new Date().toString();
+  uaModel.userAgent = args.userAgent;
 
-  let apiData = await getUserAgentApiData(args.userAgent);
-  uaModel.uaType = apiData.ua_type;
-  uaModel.uaBrand = apiData.ua_brand;
-  uaModel.uaName = apiData.ua_name;
-  uaModel.uaVersion = apiData.ua_version;
-  uaModel.uaUrl = apiData.ua_url;
-  uaModel.osName = apiData.os_name;
-  uaModel.osVersion = apiData.os_version;
-  uaModel.browserName = apiData.browser_name;
-  uaModel.browserVersion = apiData.browser_version;
-  uaModel.engineName = apiData.engine_name;
-  uaModel.engineVersion = apiData.engine_version;
-
+  const apiDataResponse = await getUserAgentApiData(args.userAgent);
+  uaModel.status = apiDataResponse.result.message;
+  const apiData = apiDataResponse.parse || null;
+  if (apiData) {
+    uaModel.software = apiData.software;
+    uaModel.softwareName = apiData.software_name;
+    uaModel.softwareNameCode = apiData.software_name_code;
+    uaModel.softwareVersion = apiData.software_version;
+    uaModel.softwareVersionFull = apiData.software_version_full;
+    uaModel.simpleSoftwareString = apiData.simple_software_string;
+    uaModel.simpleOperatingPlatformString = apiData.simple_operating_platform_string;
+    uaModel.operatingSystem = apiData.operating_system;
+    uaModel.operatingSystemName = apiData.operating_system_name;
+    uaModel.operatingSystemVersion = apiData.operating_system_version;
+    uaModel.operatingSystemVersionFull = apiData.operating_system_version_full;
+    uaModel.operatingSystemNameCode = apiData.operating_system_name_code;    
+  }
+  
   return uaModel;
 }
 
 async function getUserAgentApiData(userAgent) {
-  var ua = encodeURIComponent(userAgent).replace(/%20/g, '+');
-  var response = await axios.get(`https://useragentapi.com/api/v4/json/${process.env.UA_API_KEY}/` + ua);
-  console.log("UserAgent API Response:");
-  console.log(response.data);
-  return response.data.data;
+  const body = { "user_agent": userAgent };
+  const headers = { "X-API-KEY": process.env.UA_API_KEY };
+  const response = await axios.post("https://api.whatismybrowser.com/api/v2/user_agent_parse", body, { headers });
+  console.log("UserAgent API Response:", response.data);
+  return response.data;
 }
 
 async function createIpAddressModel(params) {
   const ipaModel = new IpAddress(params);
 
-  let apiData = await getIpAddressApiData(params.ipAddress);
+  const apiData = await getIpAddressApiData(params.ipAddress);
   ipaModel.status = apiData.status;
   ipaModel.country = apiData.country;
   ipaModel.countryCode = apiData.countryCode;
@@ -54,9 +60,8 @@ async function createIpAddressModel(params) {
 }
 
 async function getIpAddressApiData(ipAddress) {
-  var response = await axios.get('http://ip-api.com/json/' + ipAddress);
-  console.log("IP Address API Response:");
-  console.log(response.data);
+  const response = await axios.get('http://ip-api.com/json/' + ipAddress);
+  console.log("IP Address API Response:", response.data);
   return response.data;
 }
 

@@ -34,7 +34,7 @@ db.helloworld.insert({"hello":"world"})
 
 ### Start api server
 
-Start express: `npm start`
+Start express: `yarn start`
 
 ## Resources
 
