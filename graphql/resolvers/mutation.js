@@ -67,8 +67,8 @@ async function getIpAddressApiData(ipAddress) {
 
 exports.mutation = {
   Mutation: {
-    createPageVisit: async (root, { path, referrer, ipAddress }, { userAgent }, info) => {
-      const pageVisitModel = new PageVisit({ path: path, referrer: referrer });
+    createPageVisit: async (root, { userId, path, referrer, ipAddress }, { userAgent }, info) => {
+      const pageVisitModel = new PageVisit({ userId, path, referrer });
       const newPageVisit = await pageVisitModel.save();
       if (!newPageVisit) {
         throw new Error('Error');

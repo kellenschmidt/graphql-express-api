@@ -10,6 +10,7 @@ exports.typeDefs = [`
 
   type PageVisit {
     _id: String
+    userId: Int
     path: String
     referrer: String
     userAgent: UserAgent
@@ -58,7 +59,7 @@ exports.typeDefs = [`
   }
 
   type Mutation {
-    createPageVisit(path: String!, referrer: String, ipAddress: String!): PageVisit
+    createPageVisit(userId: Int, path: String!, referrer: String, ipAddress: String!): PageVisit
   }
 
   schema {
