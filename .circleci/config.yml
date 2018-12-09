@@ -103,6 +103,7 @@ jobs:
             ARTIFACT_DIR=artifacts
             ARTIFACT_NAME=dist_$VERSION
             mkdir $ARTIFACT_DIR
+            mv app-version.txt $ARTIFACT_DIR
             ghr -t $GITHUB_TOKEN -u $CIRCLE_PROJECT_USERNAME -r $CIRCLE_PROJECT_REPONAME -c $CIRCLE_SHA1 -delete $VERSION $ARTIFACT_DIR
 
 workflows:

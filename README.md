@@ -24,7 +24,8 @@ db.createUser({
   roles: [
     { role: "readWrite", db: "test" },
     { role: "readWrite", db: "admin" },
-    { role: "readWrite", db: "interactions"}
+    { role: "readWrite", db: "interactions" },
+    { role: "dbAdmin", db: "interactions" }
   ]
 })
 use interactions
@@ -33,7 +34,7 @@ db.helloworld.insert({"hello":"world"})
 
 ### Start api server
 
-Start express: `npm start`
+Start express: `yarn start`
 
 ## Resources
 

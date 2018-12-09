@@ -10,6 +10,7 @@ exports.typeDefs = [`
 
   type PageVisit {
     _id: String
+    userId: Int
     path: String
     referrer: String
     userAgent: UserAgent
@@ -20,17 +21,19 @@ exports.typeDefs = [`
     _id: String
     pageVisitId: String!
     userAgent: String!,
-    uaType: String,
-    uaBrand: String,
-    uaName: String,
-    uaVersion: String,
-    uaUrl: String,
-    osName: String,
-    osVersion: String,
-    browserName: String,
-    browserVersion: String,
-    engineName: String,
-    engineVersion: String,
+    software: String,
+    softwareName: String,
+    softwareNameCode: String,
+    softwareVersion: String,
+    softwareVersionFull: [String],
+    simpleSoftwareString: String,
+    simpleOperatingPlatformString: String,
+    operatingSystem: String,
+    operatingSystemName: String,
+    operatingSystemVersion: String,
+    operatingSystemVersionFull: [String],
+    operatingSystemNameCode: String,
+    status: String,
     datetime: String!,
     pageVisit: PageVisit,
   }
@@ -56,7 +59,7 @@ exports.typeDefs = [`
   }
 
   type Mutation {
-    createPageVisit(path: String!, referrer: String, ipAddress: String!): PageVisit
+    createPageVisit(userId: Int, path: String!, referrer: String, ipAddress: String!): PageVisit
   }
 
   schema {
