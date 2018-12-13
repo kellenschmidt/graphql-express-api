@@ -13,7 +13,7 @@ exports.typeDefs = [`
     userId: Int
     path: String
     referrer: String
-    datetime: String!
+    datetime: String
     userAgent: UserAgent
     ipAddress: IpAddress
   }
