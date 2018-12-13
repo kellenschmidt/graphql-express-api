@@ -32,6 +32,13 @@ use interactions
 db.helloworld.insert({"hello":"world"})
 ```
 
+### Delete mongo database
+
+```javascript
+use interactions
+db.dropDatabase()
+```
+
 ### Start api server
 
 Start express: `yarn start`

@@ -13,6 +13,7 @@ exports.typeDefs = [`
     userId: Int
     path: String
     referrer: String
+    datetime: String!
     userAgent: UserAgent
     ipAddress: IpAddress
   }
@@ -20,42 +21,41 @@ exports.typeDefs = [`
   type UserAgent {
     _id: String
     pageVisitId: String!
-    userAgent: String!,
-    software: String,
-    softwareName: String,
-    softwareNameCode: String,
-    softwareVersion: String,
-    softwareVersionFull: [String],
-    simpleSoftwareString: String,
-    simpleOperatingPlatformString: String,
-    operatingSystem: String,
-    operatingSystemName: String,
-    operatingSystemVersion: String,
-    operatingSystemVersionFull: [String],
-    operatingSystemNameCode: String,
-    status: String,
-    datetime: String!,
-    pageVisit: PageVisit,
+    userAgent: String!
+    software: String
+    softwareName: String
+    softwareNameCode: String
+    softwareVersion: String
+    softwareVersionFull: [String]
+    simpleSoftwareString: String
+    simpleOperatingPlatformString: String
+    operatingSystem: String
+    operatingSystemName: String
+    operatingSystemVersion: String
+    operatingSystemVersionFull: [String]
+    operatingSystemNameCode: String
+    status: String
+    pageVisit: PageVisit
   }
 
   type IpAddress {
     _id: String
-    pageVisitId: String!,
-    status: String,
-    country: String,
-    countryCode: String,
-    region: String,
-    regionName: String,
-    city: String,
-    zip: String,
-    lat: Float,
-    lon: Float,
-    timezone: String,
-    isp: String,
-    org: String,
-    as: String,
-    query: String,
-    pageVisit: PageVisit,
+    pageVisitId: String!
+    status: String
+    country: String
+    countryCode: String
+    region: String
+    regionName: String
+    city: String
+    zip: String
+    lat: Float
+    lon: Float
+    timezone: String
+    isp: String
+    org: String
+    as: String
+    query: String
+    pageVisit: PageVisit
   }
 
   type Mutation {
