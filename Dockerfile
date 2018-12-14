@@ -3,7 +3,7 @@
 # docker build --build-arg APP_VERSION=v1 -t kellenschmidt/graphql-express-api .
 # docker run -p 80:80 -d kellenschmidt/graphql-express-api
 
-FROM node:9-alpine
+FROM node:10-alpine
 ARG APP_VERSION
 RUN mkdir /app
 WORKDIR /app
