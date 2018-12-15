@@ -16,7 +16,6 @@ const UserAgentSchema = new Schema({
   operatingSystemVersion: String,
   operatingSystemVersionFull: [String],
   operatingSystemNameCode: String,
-  datetime: Date,
   status: String,
 });
 

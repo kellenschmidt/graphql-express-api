@@ -5,6 +5,7 @@ const PageVisitSchema = new Schema({
   userId: Number,
   path: String,
   referrer: String,
+  datetime: Date,
 });
 
 const PageVisit = mongoose.model('PageVisit', PageVisitSchema);

@@ -5,7 +5,6 @@ const axios = require('axios');
 
 async function createUserAgentModel(args) {
   const uaModel = new UserAgent(args);
-  uaModel.datetime = new Date().toString();
   uaModel.userAgent = args.userAgent;
 
   const apiDataResponse = await getUserAgentApiData(args.userAgent);
@@ -69,6 +68,7 @@ exports.mutation = {
   Mutation: {
     createPageVisit: async (root, { userId, path, referrer, ipAddress }, { userAgent }, info) => {
       const pageVisitModel = new PageVisit({ userId, path, referrer });
+      pageVisitModel.datetime = new Date().toString();
       const newPageVisit = await pageVisitModel.save();
       if (!newPageVisit) {
         throw new Error('Error');
